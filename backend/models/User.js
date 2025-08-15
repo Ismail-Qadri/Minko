@@ -1,27 +1,24 @@
-// models/User.js
-import { Schema, model } from "mongoose";
+import mongoose from "mongoose";
 
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  email: { type: String, unique: true, required: true },
+  email: { type: String, required: true, unique: true, index: true },
   password: { type: String, required: true },
-  bio: String,
-  company: String,
-  website: String,
-  dob: String,
-  gender: String,
-  phone: String,
-  platform: String,
-  youtube: String,
-  instagram: String,
-  handle: String,
-  followers: String,
-  category: String,
-  rating: String,
-  image: String,
-  type: { type: String, enum: ["creator", "brand"], required: true },
-}, { timestamps: true });
+  isVerified: { type: Boolean, default: false },
+  bio: { type: String },
+  company: { type: String },
+  website: { type: String },
+  dob: { type: Date },
+  gender: { type: String },
+  phone: { type: String },
+  youtube: { type: String },
+  instagram: { type: String },
+  type: { type: String, enum: ["creator", "brand"], required: true, index: true },
+  handle: { type: String },
+  followers: { type: Number },
+  category: { type: String },
+  rating: { type: Number },
+  image: { type: String },
+});
 
-export default model("User", userSchema);
-
-
+export default mongoose.model("User", userSchema);
