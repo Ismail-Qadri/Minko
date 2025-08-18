@@ -1021,6 +1021,7 @@ import {
   Eye, Edit, Trash2, ExternalLink, Share2, Clock,
   ShoppingBag
 } from "lucide-react";
+import Navbar from "../Navbar";
 
 // Set axios base URL
 axios.defaults.baseURL = "http://localhost:5000";
@@ -1215,7 +1216,7 @@ const CreatorDashboard = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm">
+      {/* <header className="border-b border-border bg-card/50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
@@ -1241,7 +1242,9 @@ const CreatorDashboard = () => {
             </div>
           </div>
         </div>
-      </header>
+      </header> */}
+
+<Navbar />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8 flex justify-between items-center">
@@ -1266,11 +1269,12 @@ const CreatorDashboard = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid grid-cols-4 w-full max-w-2xl bg-muted/50">
+          <TabsList className="grid grid-cols-5 w-full max-w-2xl bg-muted/50">
             <TabsTrigger value="home" className="data-[state=active]:bg-brand-primary data-[state=active]:text-white">Overview</TabsTrigger>
             <TabsTrigger value="products" className="data-[state=active]:bg-brand-primary data-[state=active]:text-white">My Products</TabsTrigger>
             <TabsTrigger value="requests" className="data-[state=active]:bg-brand-primary data-[state=active]:text-white">Requests</TabsTrigger>
             <TabsTrigger value="analytics" className="data-[state=active]:bg-brand-primary data-[state=active]:text-white">Analytics</TabsTrigger>
+            <TabsTrigger value="settings" className="data-[state=active]:bg-brand-primary data-[state=active]:text-white">Settings</TabsTrigger>
           </TabsList>
 
           {/* Overview */}
@@ -1598,6 +1602,46 @@ const CreatorDashboard = () => {
               </Card>
             </div>
           </TabsContent>
+
+          {/* Settings */}
+ <TabsContent value="settings" className="space-y-6">
+   <h2 className="text-2xl font-bold">Settings</h2>
+   <p className="text-muted-foreground">
+     Manage your account settings and preferences.
+   </p>
+   {/* Nested Tabs */}
+   <Tabs defaultValue="edit-profile" className="mt-4">
+     {/* Sub Tabs List */}
+     <TabsList>
+       <TabsTrigger value="edit-profile">Edit Profile</TabsTrigger>
+       <TabsTrigger value="account-details">Account Details</TabsTrigger>
+       <TabsTrigger value="change-password">Change Password</TabsTrigger>
+     </TabsList>
+     {/* Sub Tabs Content */}
+     <TabsContent value="edit-profile" className="space-y-4">
+       <h3 className="text-lg font-semibold">Edit Profile</h3>
+       <p className="text-sm text-muted-foreground">
+         Update your personal information here.
+       </p>
+       {/* Your Edit Profile Form goes here */}
+     </TabsContent>
+     <TabsContent value="account-details" className="space-y-4">
+       <h3 className="text-lg font-semibold">Account Details</h3>
+       <p className="text-sm text-muted-foreground">
+         View and update your account details.
+       </p>
+       {/* Your Account Details content goes here */}
+     </TabsContent>
+     <TabsContent value="change-password" className="space-y-4">
+       <h3 className="text-lg font-semibold">Change Password</h3>
+       <p className="text-sm text-muted-foreground">
+         Secure your account by changing your password.
+       </p>
+       {/* Your Change Password form goes here */}
+     </TabsContent>
+   </Tabs>
+ </TabsContent>
+
         </Tabs>
       </div>
     </div>

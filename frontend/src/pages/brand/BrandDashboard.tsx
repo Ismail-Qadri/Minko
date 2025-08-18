@@ -432,6 +432,7 @@ import {
   Check,
   X
 } from "lucide-react";
+import Navbar from "../Navbar";
 
 // Set axios base URL
 axios.defaults.baseURL = "http://localhost:5000";
@@ -634,32 +635,7 @@ const BrandDashboard = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-brand-primary to-brand-secondary"></div>
-                <span className="text-xl font-bold text-brand-text">MINKO</span>
-              </div>
-              <Badge variant="secondary" className="bg-brand-primary/10 text-brand-primary border-brand-primary/20">
-                Brand Dashboard
-              </Badge>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Avatar>
-                <AvatarImage src="/placeholder.svg" />
-                <AvatarFallback className="bg-brand-primary text-white">TB</AvatarFallback>
-              </Avatar>
-              <div>
-                <p className="font-medium text-brand-text">TechBrand Inc.</p>
-                <p className="text-sm text-brand-text-light">@techbrand</p>
-              </div>
-              <Button variant="outline" onClick={() => navigate("/")}>Logout</Button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Navbar />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
@@ -668,11 +644,11 @@ const BrandDashboard = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid grid-cols-4 w-full max-w-md bg-muted/50">
-            <TabsTrigger value="overview" className="data-[state=active]:bg-brand-primary data-[state=active]:text-white">Overview</TabsTrigger>
-            <TabsTrigger value="products" className="data-[state=active]:bg-brand-primary data-[state=active]:text-white">Products</TabsTrigger>
-            <TabsTrigger value="creators" className="data-[state=active]:bg-brand-primary data-[state=active]:text-white">Creators</TabsTrigger>
-            <TabsTrigger value="analytics" className="data-[state=active]:bg-brand-primary data-[state=active]:text-white">Analytics</TabsTrigger>
+          <TabsList className="grid grid-cols-4 w-full max-w-md">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="products" >Products</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            <TabsTrigger value="creators" >Settings</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
@@ -812,7 +788,7 @@ const BrandDashboard = () => {
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold text-brand-text">Product Management</h2>
               <Button 
-                className="bg-brand-primary hover:bg-brand-primary/90 text-white"
+                className="bg-[hsl(var(--brand-primary))] hover:bg-[hsl(var(--brand-primary))]/90"
                 onClick={() => navigate("/brand/brand-add-product")}
               >
                 <Plus className="w-4 h-4 mr-2" />
