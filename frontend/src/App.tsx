@@ -15,6 +15,8 @@ import OrderSuccess from "./pages/OrderSuccess";
 import Checkout from "./pages/checkout";
 import AddProduct from "./pages/AddProduct";
 import Settings from "./pages/Settings";
+import BrandEditProduct from "./pages/brand/BrandEditProduct";
+import BrandAddProduct from "./pages/brand/BrandAddProduct";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +33,8 @@ const App = () => (
           <Route path="/browse" element={<Browse />} />
           <Route path="/creator/dashboard" element={<CreatorDashboard />} />
           <Route path="/brand/dashboard" element={<BrandDashboard />} />
+          <Route path="/brand/brand-add-product" element={<BrandAddProduct/>} />
+          <Route path="/brand/brand-edit-product/:productId" element={<BrandEditProduct />} />
            <Route path="/store/:id" element={<Store />} />
            <Route path="/creator/add-product" element={<AddProduct />} />
            <Route path="/checkout/:productId" element={<Checkout />} />

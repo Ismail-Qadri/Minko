@@ -316,7 +316,7 @@ const AddProduct = () => {
                 <Button 
                   type="submit" 
                   disabled={isLoading}
-                  className="bg-brand-primary hover:bg-brand-primary/90"
+                  className="bg-[hsl(var(--brand-primary))] hover:bg-[hsl(var(--brand-primary))]/90 flex items-center"
                 >
                   {isLoading ? "Adding..." : "Add Product"}
                   <Plus className="w-4 h-4 ml-2" />

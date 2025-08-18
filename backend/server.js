@@ -16,7 +16,7 @@ import dotenv from "dotenv";
 // Load environment variables
 dotenv.config();
 
-const app = express();a
+const app = express();
 
 // Middlewares
 app.use(cors());
@@ -39,6 +39,7 @@ app.use(cookieParser());
 app.use("/api/creator", creatorRoutes);
 app.use("/api", storeRoutes);
 app.use("/api", productRoutes);
+app.use("/api/brand", brandRoutes);
 
 
 // Start Server
