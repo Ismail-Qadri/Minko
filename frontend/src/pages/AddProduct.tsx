@@ -1,78 +1,3 @@
-// import { useState } from "react";
-// import axios from "axios";
-// import { useNavigate } from "react-router-dom";
-
-// export default function AddProduct() {
-//   const navigate = useNavigate();
-//   const [formData, setFormData] = useState({
-//     name: "",
-//     price: "",
-//     image: "",
-//     description: ""
-//   });
-
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
-
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
-//     try {
-//       const token = localStorage.getItem("token");
-//       await axios.post("http://localhost:5000/api/products", formData, {
-//         headers: { Authorization: `Bearer ${token}` }
-//       });
-//       navigate("/dashboard"); // redirect back to My Products
-//     } catch (err) {
-//       console.error("❌ Error adding product:", err);
-//     }
-//   };
-
-//   return (
-//     <div className="max-w-lg mx-auto p-6">
-//       <h1 className="text-2xl font-bold mb-4">Add New Product</h1>
-//       <form onSubmit={handleSubmit} className="space-y-4">
-//         <input
-//           name="name"
-//           placeholder="Product Name"
-//           value={formData.name}
-//           onChange={handleChange}
-//           className="w-full border p-2 rounded"
-//         />
-//         <input
-//           name="price"
-//           type="number"
-//           placeholder="Price"
-//           value={formData.price}
-//           onChange={handleChange}
-//           className="w-full border p-2 rounded"
-//         />
-//         <input
-//           name="image"
-//           placeholder="Image URL"
-//           value={formData.image}
-//           onChange={handleChange}
-//           className="w-full border p-2 rounded"
-//         />
-//         <textarea
-//           name="description"
-//           placeholder="Description"
-//           value={formData.description}
-//           onChange={handleChange}
-//           className="w-full border p-2 rounded"
-//         />
-//         <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-//           Save Product
-//         </button>
-//       </form>
-//     </div>
-//   );
-// }
-
-
-
-
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
@@ -129,8 +54,39 @@ const AddProduct = () => {
     }
 
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/creator/products", {
+  const token = localStorage.getItem("token");
+  const creatorId = localStorage.getItem("userId");
+  const user = localStorage.getItem("user");
+      let userRole = null;
+      let parsedUser = null;
+      if (user) {
+        try {
+          parsedUser = JSON.parse(user);
+          userRole = parsedUser.type || parsedUser.role;
+        } catch (e) {
+          console.error("[AddProduct] Failed to parse user from localStorage:", e, user);
+        }
+      }
+      // console.log("[AddProduct] localStorage user:", user);
+      console.log("[AddProduct] parsedUser:", parsedUser);
+      console.log("[AddProduct] userRole:", userRole);
+      if (!creatorId) {
+        setError("No userId found in localStorage. Please log in again.");
+        setIsLoading(false);
+        return;
+      }
+      if (!userRole) {
+        setError("No user type found in localStorage user. Please log in again.");
+        setIsLoading(false);
+        return;
+      }
+      if (userRole !== "creator") {
+        setError(`You must be logged in as a creator to add a product. (Found type: ${userRole})`);
+        setIsLoading(false);
+        return;
+      }
+      console.log("creatorId", creatorId);
+      const response = await fetch("http://localhost:5000/api/products/creator", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -138,6 +94,7 @@ const AddProduct = () => {
         },
         body: JSON.stringify({
           ...formData,
+          creator: creatorId,
           price: parseFloat(formData.price),
           inventory: formData.inventory ? parseInt(formData.inventory) : 0,
           tags: formData.tags ? formData.tags.split(",").map(tag => tag.trim()) : []
@@ -145,10 +102,17 @@ const AddProduct = () => {
       });
 
       if (response.ok) {
-        navigate("/creator/dashboard");
+        const data = await response.json();
+        console.log('[AddProduct] Product added:', data);
+        if (creatorId) {
+          navigate(`/creator/dashboard/${creatorId}`);
+        } else {
+          navigate("/creator/dashboard");
+        }
       } else {
         const data = await response.json();
         setError(data.message || "Failed to add product");
+        console.error('[AddProduct] Failed to add product:', response.status, response.statusText);
       }
     } catch (err) {
       console.error("Error adding product:", err);
@@ -316,7 +280,7 @@ const AddProduct = () => {
                 <Button 
                   type="submit" 
                   disabled={isLoading}
-                  className="bg-[hsl(var(--brand-primary))] hover:bg-[hsl(var(--brand-primary))]/90 flex items-center"
+                  className="bg-brand-primary hover:bg-brand-primary/90"
                 >
                   {isLoading ? "Adding..." : "Add Product"}
                   <Plus className="w-4 h-4 ml-2" />

@@ -1,1056 +1,702 @@
-// import { useState } from "react";
-// import { Button } from "../../components/ui/button";
-// import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
-// import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/tabs";
-// import { Badge } from "../../components/ui/badge";
-// import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar";
-// import { 
-//   Package, 
-//   TrendingUp, 
-//   DollarSign, 
-//   Users, 
-//   Plus, 
-//   BarChart3,
-//   Eye,
-//   ShoppingCart,
-//   Star
-// } from "lucide-react";
-// import { useNavigate } from "react-router-dom";
-
-// const BrandDashboard = () => {
-//   const navigate = useNavigate();
-//   const [activeTab, setActiveTab] = useState("overview");
-
-//   // Mock data
-//   const stats = {
-//     totalProducts: 25,
-//     totalRevenue: 45600,
-//     totalCreators: 89,
-//     conversionRate: 4.8
-//   };
-
-//   const products = [
-//     { 
-//       id: 1, 
-//       name: "Premium Wireless Headphones", 
-//       price: 199, 
-//       stock: 150, 
-//       creatorsPromoting: 12,
-//       totalSales: 89
-//     },
-//     { 
-//       id: 2, 
-//       name: "Smart Fitness Tracker", 
-//       price: 249, 
-//       stock: 75, 
-//       creatorsPromoting: 8,
-//       totalSales: 156
-//     },
-//     { 
-//       id: 3, 
-//       name: "Sustainable Water Bottle", 
-//       price: 39, 
-//       stock: 200, 
-//       creatorsPromoting: 23,
-//       totalSales: 234
-//     }
-//   ];
-
-//   const creatorRequests = [
-//     {
-//       id: 1,
-//       creator: "Jane Smith",
-//       handle: "@janesmith",
-//       followers: "125K",
-//       product: "Premium Wireless Headphones",
-//       requestedAt: "2 hours ago",
-//       status: "pending"
-//     },
-//     {
-//       id: 2,
-//       creator: "Mike Johnson",
-//       handle: "@mikej",
-//       followers: "89K",
-//       product: "Smart Fitness Tracker",
-//       requestedAt: "1 day ago",
-//       status: "pending"
-//     },
-//     {
-//       id: 3,
-//       creator: "Sarah Wilson",
-//       handle: "@sarahw",
-//       followers: "67K",
-//       product: "Sustainable Water Bottle",
-//       requestedAt: "3 days ago",
-//       status: "approved"
-//     }
-//   ];
-
-//   const topCreators = [
-//     { id: 1, name: "Alex Chen", handle: "@alexchen", sales: 45, revenue: 8950 },
-//     { id: 2, name: "Emma Davis", handle: "@emmad", sales: 38, revenue: 7220 },
-//     { id: 3, name: "Ryan Martinez", handle: "@ryanm", sales: 32, revenue: 6140 }
-//   ];
-
-//   return (
-//     <div className="min-h-screen bg-background">
-//       {/* Header */}
-//       <header className="border-b border-border bg-card/50 backdrop-blur-sm">
-//         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-//           <div className="flex justify-between items-center h-16">
-//             <div className="flex items-center space-x-4">
-//               <div className="flex items-center space-x-2">
-//                 <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[hsl(var(--brand-primary))] to-[hsl(var(--brand-secondary))]"></div>
-//                 <span className="text-xl font-bold text-[hsl(var(--brand-text))]">MINKO</span>
-//               </div>
-//               <Badge variant="secondary">Brand Dashboard</Badge>
-//             </div>
-//             <div className="flex items-center space-x-4">
-//               <Avatar>
-//                 <AvatarImage src="/placeholder.svg" />
-//                 <AvatarFallback>TB</AvatarFallback>
-//               </Avatar>
-//               <div>
-//                 <p className="font-medium">TechBrand Inc.</p>
-//                 <p className="text-sm text-muted-foreground">@techbrand</p>
-//               </div>
-//               <Button variant="outline" onClick={() => navigate("/")}>Logout</Button>
-//             </div>
-//           </div>
-//         </div>
-//       </header>
-
-//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-//         <div className="mb-8">
-//           <h1 className="text-3xl font-bold text-[hsl(var(--brand-text))]">Brand Dashboard</h1>
-//           <p className="text-[hsl(var(--brand-text-light))]">Manage your products and collaborate with creators</p>
-//         </div>
-
-//         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-//           <TabsList className="grid grid-cols-4 w-full max-w-md">
-//             <TabsTrigger value="overview">Overview</TabsTrigger>
-//             <TabsTrigger value="products">Products</TabsTrigger>
-//             <TabsTrigger value="creators">Creators</TabsTrigger>
-//             <TabsTrigger value="analytics">Analytics</TabsTrigger>
-//           </TabsList>
-
-//           <TabsContent value="overview" className="space-y-6">
-//             {/* Stats Cards */}
-//             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-//               <Card>
-//                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-//                   <CardTitle className="text-sm font-medium">Total Products</CardTitle>
-//                   <Package className="h-4 w-4 text-muted-foreground" />
-//                 </CardHeader>
-//                 <CardContent>
-//                   <div className="text-2xl font-bold">{stats.totalProducts}</div>
-//                 </CardContent>
-//               </Card>
-              
-//               <Card>
-//                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-//                   <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-//                   <DollarSign className="h-4 w-4 text-muted-foreground" />
-//                 </CardHeader>
-//                 <CardContent>
-//                   <div className="text-2xl font-bold">${stats.totalRevenue.toLocaleString()}</div>
-//                 </CardContent>
-//               </Card>
-              
-//               <Card>
-//                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-//                   <CardTitle className="text-sm font-medium">Active Creators</CardTitle>
-//                   <Users className="h-4 w-4 text-muted-foreground" />
-//                 </CardHeader>
-//                 <CardContent>
-//                   <div className="text-2xl font-bold">{stats.totalCreators}</div>
-//                 </CardContent>
-//               </Card>
-              
-//               <Card>
-//                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-//                   <CardTitle className="text-sm font-medium">Conversion Rate</CardTitle>
-//                   <TrendingUp className="h-4 w-4 text-muted-foreground" />
-//                 </CardHeader>
-//                 <CardContent>
-//                   <div className="text-2xl font-bold">{stats.conversionRate}%</div>
-//                 </CardContent>
-//               </Card>
-//             </div>
-
-//             {/* Creator Requests */}
-//             <Card>
-//               <CardHeader>
-//                 <CardTitle>Recent Creator Requests</CardTitle>
-//               </CardHeader>
-//               <CardContent>
-//                 <div className="space-y-4">
-//                   {creatorRequests.slice(0, 3).map((request) => (
-//                     <div key={request.id} className="flex items-center justify-between p-4 border rounded-lg">
-//                       <div className="flex items-center space-x-4">
-//                         <Avatar>
-//                           <AvatarFallback>{request.creator.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-//                         </Avatar>
-//                         <div>
-//                           <p className="font-medium">{request.creator}</p>
-//                           <p className="text-sm text-muted-foreground">{request.handle} • {request.followers} followers</p>
-//                           <p className="text-xs text-muted-foreground">Wants to promote: {request.product}</p>
-//                         </div>
-//                       </div>
-//                       <div className="flex space-x-2">
-//                         <Button size="sm" className="bg-[hsl(var(--brand-primary))] hover:bg-[hsl(var(--brand-primary))]/90">
-//                           Approve
-//                         </Button>
-//                         <Button size="sm" variant="outline">
-//                           Decline
-//                         </Button>
-//                       </div>
-//                     </div>
-//                   ))}
-//                 </div>
-//               </CardContent>
-//             </Card>
-
-//             {/* Top Performing Creators */}
-//             <Card>
-//               <CardHeader>
-//                 <CardTitle>Top Performing Creators</CardTitle>
-//               </CardHeader>
-//               <CardContent>
-//                 <div className="space-y-4">
-//                   {topCreators.map((creator, index) => (
-//                     <div key={creator.id} className="flex items-center justify-between">
-//                       <div className="flex items-center space-x-4">
-//                         <div className="w-8 h-8 rounded-full bg-[hsl(var(--brand-primary))]/10 flex items-center justify-center">
-//                           <span className="font-bold text-[hsl(var(--brand-primary))]">#{index + 1}</span>
-//                         </div>
-//                         <div>
-//                           <p className="font-medium">{creator.name}</p>
-//                           <p className="text-sm text-muted-foreground">{creator.handle}</p>
-//                         </div>
-//                       </div>
-//                       <div className="text-right">
-//                         <p className="font-bold">${creator.revenue.toLocaleString()}</p>
-//                         <p className="text-sm text-muted-foreground">{creator.sales} sales</p>
-//                       </div>
-//                     </div>
-//                   ))}
-//                 </div>
-//               </CardContent>
-//             </Card>
-//           </TabsContent>
-
-//           <TabsContent value="products" className="space-y-6">
-//             <div className="flex justify-between items-center">
-//               <h2 className="text-2xl font-bold">Product Management</h2>
-//               <Button className="bg-[hsl(var(--brand-primary))] hover:bg-[hsl(var(--brand-primary))]/90">
-//                 <Plus className="w-4 h-4 mr-2" />
-//                 Add Product
-//               </Button>
-//             </div>
-            
-//             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-//               {products.map((product) => (
-//                 <Card key={product.id}>
-//                   <CardHeader>
-//                     <CardTitle className="text-lg">{product.name}</CardTitle>
-//                   </CardHeader>
-//                   <CardContent>
-//                     <div className="space-y-4">
-//                       <div className="flex justify-between">
-//                         <span>Price:</span>
-//                         <span className="font-bold">${product.price}</span>
-//                       </div>
-//                       <div className="flex justify-between">
-//                         <span>Stock:</span>
-//                         <span className="font-bold">{product.stock}</span>
-//                       </div>
-//                       <div className="flex justify-between">
-//                         <span>Creators:</span>
-//                         <span className="font-bold">{product.creatorsPromoting}</span>
-//                       </div>
-//                       <div className="flex justify-between">
-//                         <span>Total Sales:</span>
-//                         <span className="font-bold text-green-600">{product.totalSales}</span>
-//                       </div>
-//                       <div className="flex space-x-2">
-//                         <Button variant="outline" size="sm" className="flex-1">
-//                           <Eye className="w-4 h-4 mr-1" />
-//                           View
-//                         </Button>
-//                         <Button variant="outline" size="sm" className="flex-1">
-//                           Edit
-//                         </Button>
-//                       </div>
-//                     </div>
-//                   </CardContent>
-//                 </Card>
-//               ))}
-//             </div>
-//           </TabsContent>
-
-//           <TabsContent value="creators" className="space-y-6">
-//             <h2 className="text-2xl font-bold">Creator Collaboration</h2>
-            
-//             <div className="space-y-4">
-//               {creatorRequests.map((request) => (
-//                 <Card key={request.id}>
-//                   <CardContent className="p-6">
-//                     <div className="flex justify-between items-center">
-//                       <div className="flex items-center space-x-4">
-//                         <Avatar>
-//                           <AvatarFallback>{request.creator.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-//                         </Avatar>
-//                         <div>
-//                           <h3 className="font-semibold">{request.creator}</h3>
-//                           <p className="text-sm text-muted-foreground">{request.handle} • {request.followers} followers</p>
-//                           <p className="text-sm">Wants to promote: <span className="font-medium">{request.product}</span></p>
-//                           <p className="text-xs text-muted-foreground">Requested {request.requestedAt}</p>
-//                         </div>
-//                       </div>
-//                       <div className="flex items-center space-x-2">
-//                         {request.status === "pending" ? (
-//                           <>
-//                             <Button size="sm" className="bg-[hsl(var(--brand-primary))] hover:bg-[hsl(var(--brand-primary))]/90">
-//                               Approve
-//                             </Button>
-//                             <Button size="sm" variant="outline">
-//                               Decline
-//                             </Button>
-//                           </>
-//                         ) : (
-//                           <Badge variant="default" className="bg-green-600">
-//                             Approved
-//                           </Badge>
-//                         )}
-//                       </div>
-//                     </div>
-//                   </CardContent>
-//                 </Card>
-//               ))}
-//             </div>
-//           </TabsContent>
-
-//           <TabsContent value="analytics" className="space-y-6">
-//             <h2 className="text-2xl font-bold">Analytics & Insights</h2>
-            
-//             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-//               <Card>
-//                 <CardHeader>
-//                   <CardTitle className="flex items-center">
-//                     <BarChart3 className="w-5 h-5 mr-2" />
-//                     Performance Metrics
-//                   </CardTitle>
-//                 </CardHeader>
-//                 <CardContent>
-//                   <div className="space-y-4">
-//                     <div className="flex justify-between">
-//                       <span>Total Revenue</span>
-//                       <span className="font-bold">${stats.totalRevenue.toLocaleString()}</span>
-//                     </div>
-//                     <div className="flex justify-between">
-//                       <span>Average Order Value</span>
-//                       <span className="font-bold">$156</span>
-//                     </div>
-//                     <div className="flex justify-between">
-//                       <span>Creator Conversion Rate</span>
-//                       <span className="font-bold">4.8%</span>
-//                     </div>
-//                     <div className="flex justify-between">
-//                       <span>Return on Ad Spend</span>
-//                       <span className="font-bold">3.2x</span>
-//                     </div>
-//                   </div>
-//                 </CardContent>
-//               </Card>
-
-//               <Card>
-//                 <CardHeader>
-//                   <CardTitle className="flex items-center">
-//                     <TrendingUp className="w-5 h-5 mr-2" />
-//                     Growth Trends
-//                   </CardTitle>
-//                 </CardHeader>
-//                 <CardContent>
-//                   <div className="space-y-4">
-//                     <div className="flex justify-between">
-//                       <span>Revenue Growth</span>
-//                       <span className="font-bold text-green-600">+23%</span>
-//                     </div>
-//                     <div className="flex justify-between">
-//                       <span>New Creators</span>
-//                       <span className="font-bold text-green-600">+15</span>
-//                     </div>
-//                     <div className="flex justify-between">
-//                       <span>Product Views</span>
-//                       <span className="font-bold text-green-600">+45%</span>
-//                     </div>
-//                     <div className="flex justify-between">
-//                       <span>Conversion Rate</span>
-//                       <span className="font-bold text-green-600">+12%</span>
-//                     </div>
-//                   </div>
-//                 </CardContent>
-//               </Card>
-//             </div>
-//           </TabsContent>
-//         </Tabs>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default BrandDashboard;
-
-
-
-
-
-
-
-
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useToast } from "@/hooks/use-toast";
-import { 
-  Package, 
-  TrendingUp, 
-  DollarSign, 
-  Users, 
-  Plus, 
-  BarChart3,
-  Eye,
-  Edit,
-  Trash2,
-  Check,
-  X
+import { Button } from "../../components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/tabs";
+import { Badge } from "../../components/ui/badge";
+import { Avatar, AvatarFallback } from "../../components/ui/avatar";
+import { Input } from "../../components/ui/input";
+import { Label } from "../../components/ui/label";
+import { Textarea } from "../../components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select";
+import {
+  Package, TrendingUp, DollarSign, Users, Plus,
+  Star, CheckCircle, XCircle, Edit, Trash2,
+  Eye, ShoppingCart, Calendar, Award
 } from "lucide-react";
 import Navbar from "../Navbar";
 
-// Set axios base URL
-axios.defaults.baseURL = "http://localhost:5000";
 
 const BrandDashboard = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("overview");
-  const [loading, setLoading] = useState(true);
+  const [brand, setBrand] = useState<any>(null);
+  const [brandForm, setBrandForm] = useState<any>(null);
+  const [updating, setUpdating] = useState(false);
+  console.log("BrandDashboard render", { brand, brandForm, activeTab });
+  // Fetch brand info on mount
+  useEffect(() => {
+    const fetchBrand = async () => {
+      try {
+        const brandId = localStorage.getItem("userId");
+        const token = localStorage.getItem("token");
+        console.log("Fetching brand info", { brandId, token });
+        if (!brandId || !token) return;
+        const res = await fetch(`http://localhost:5000/api/brands/${brandId}`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error("Failed to fetch brand info");
+        const data = await res.json();
+        console.log("Fetched brand data", data);
+        setBrand(data);
+        setBrandForm({
+          name: data.name || "",
+          email: data.email || "",
+          website: data.website || "",
+          phone: data.phone || "",
+          description: data.description || "",
+          // avatar: data.avatar || ""
+        });
+      } catch (err) {
+        console.error("Error fetching brand info", err);
+        setBrand(null);
+      }
+    };
+    fetchBrand();
+  }, []);
+  const [showAddProduct, setShowAddProduct] = useState(false);
   
-  // State management
-  const [stats, setStats] = useState({
-    totalProducts: 0,
-    totalRevenue: 0,
-    totalCreators: 0,
-    conversionRate: 0
+  const [products, setProducts] = useState<any[]>([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
+
+  const [creatorRequests, setCreatorRequests] = useState<any[]>([]);
+  // // Fetch creator requests for this brand
+  // useEffect(() => {
+  //   const fetchCreatorRequests = async () => {
+  //     try {
+  //       const brandId = localStorage.getItem("userId");
+  //       const res = await fetch(`http://localhost:5000/api/brand-requests?brandId=${brandId}`,
+  //         { headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` } });
+  //       const data = await res.json();
+  //       setCreatorRequests(Array.isArray(data) ? data : []);
+  //     } catch (err) {
+  //       setCreatorRequests([]);
+  //     }
+  //   };
+  //   fetchCreatorRequests();
+  // }, []);
+
+  const [newProduct, setNewProduct] = useState({
+    name: "",
+    price: "",
+    stock: "",
+    commission: "",
+    category: "",
+    description: "",
+    image: ""
   });
 
-  const [products, setProducts] = useState([]);
-  const [creatorRequests, setCreatorRequests] = useState([]);
-  const [collaboratingCreators, setCollaboratingCreators] = useState([]);
-  const [topCreators, setTopCreators] = useState([]);
+  const safeProducts = Array.isArray(products) ? products : [];
+  const stats = {
+    totalProducts: safeProducts.length,
+    totalRevenue: safeProducts.reduce((sum, p) => sum + ((p.price || 0) * (p.sales || 0)), 0),
+    totalCreators: safeProducts.reduce((sum, p) => sum + (p.creatorsPromoting || 0), 0),
+    conversionRate: 4.8 // You may want to fetch this from backend in future
+  };
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
+  const categories = [
+    "Electronics", "Fashion", "Beauty", "Fitness", 
+    "Lifestyle", "Home", "Food", "Books", "Art", "Other"
+  ];
+
+  const handleAddProduct = async () => {
+    if (!newProduct.name || !newProduct.price) {
+      alert("Please fill in required fields");
       return;
     }
-    
-    fetchAllData();
-  }, []);
-
-  const fetchAllData = async () => {
-    setLoading(true);
     try {
-      await Promise.all([
-        fetchStats(),
-        fetchProducts(),
-        fetchCreatorRequests(),
-        fetchCollaboratingCreators(),
-        fetchTopCreators()
-      ]);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      toast({
-        title: "Error",
-        description: "Failed to load dashboard data",
-        variant: "destructive"
+      const brandId = localStorage.getItem("userId");
+      console.log("Adding product", { ...newProduct, brand: brandId });
+      const res = await fetch("http://localhost:5000/api/products/brand", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+        },
+        body: JSON.stringify({
+          name: newProduct.name,
+          price: parseFloat(newProduct.price),
+          images: newProduct.image ? [newProduct.image] : [],
+          description: newProduct.description,
+          category: newProduct.category,
+          commission: parseFloat(newProduct.commission) || 10,
+          brand: brandId,
+          deliveryInstructions: ""
+        })
       });
-    } finally {
-      setLoading(false);
+      if (!res.ok) {
+        const data = await res.json();
+        console.error("Failed to add product", data);
+        throw new Error(data.message || "Failed to add product");
+      }
+      const product = await res.json();
+      console.log("Product added", product);
+      setProducts(prev => Array.isArray(prev) ? [...prev, product] : [product]);
+      setNewProduct({
+        name: "", price: "", stock: "", commission: "", 
+        category: "", description: "", image: ""
+      });
+      setShowAddProduct(false);
+      alert("Product added successfully!");
+    } catch (err: any) {
+      console.error("Error adding product", err);
+      alert(err.message || "Failed to add product");
     }
   };
 
-  const fetchStats = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get("/api/brand/stats", {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setStats(response.data);
-    } catch (error) {
-      console.error("Error fetching stats:", error);
-    }
-  };
+  // const handleApproveRequest = (requestId: number) => {
+  //   setCreatorRequests(prev => 
+  //     prev.map(req => 
+  //       req.id === requestId 
+  //         ? { ...req, status: "approved" }
+  //         : req
+  //     )
+  //   );
+  // };
 
-  const fetchProducts = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get("/api/brand/products", {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setProducts(response.data);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  };
-
-  const fetchCreatorRequests = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get("/api/brand/creator-requests", {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setCreatorRequests(response.data);
-    } catch (error) {
-      console.error("Error fetching creator requests:", error);
-    }
-  };
-
-  const fetchCollaboratingCreators = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get("/api/brand/collaborating-creators", {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setCollaboratingCreators(response.data);
-    } catch (error) {
-      console.error("Error fetching collaborating creators:", error);
-    }
-  };
-
-  const fetchTopCreators = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get("/api/brand/top-creators", {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setTopCreators(response.data);
-    } catch (error) {
-      console.error("Error fetching top creators:", error);
-    }
-  };
-
-  const handleApproveRequest = async (requestId: string) => {
-    try {
-      const token = localStorage.getItem("token");
-      await axios.put(`/api/brand/creator-requests/${requestId}/approve`, {}, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      
-      toast({
-        title: "Success",
-        description: "Creator request approved successfully"
-      });
-      
-      fetchCreatorRequests();
-      fetchCollaboratingCreators();
-    } catch (error) {
-      console.error("Error approving request:", error);
-      toast({
-        title: "Error",
-        description: "Failed to approve request",
-        variant: "destructive"
-      });
-    }
-  };
-
-  const handleDeclineRequest = async (requestId: string) => {
-    try {
-      const token = localStorage.getItem("token");
-      await axios.put(`/api/brand/creator-requests/${requestId}/decline`, {}, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      
-      toast({
-        title: "Success",
-        description: "Creator request declined"
-      });
-      
-      fetchCreatorRequests();
-    } catch (error) {
-      console.error("Error declining request:", error);
-      toast({
-        title: "Error",
-        description: "Failed to decline request",
-        variant: "destructive"
-      });
-    }
-  };
+  // const handleRejectRequest = (requestId: number) => {
+  //   setCreatorRequests(prev => 
+  //     prev.map(req => 
+  //       req.id === requestId 
+  //         ? { ...req, status: "rejected" }
+  //         : req
+  //     )
+  //   );
+  // };
 
   const handleDeleteProduct = async (productId: string) => {
-    if (!confirm("Are you sure you want to delete this product?")) return;
-    
-    try {
-      const token = localStorage.getItem("token");
-      await axios.delete(`/api/brand/products/${productId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      
-      toast({
-        title: "Success",
-        description: "Product deleted successfully"
-      });
-      
-      fetchProducts();
-      fetchStats();
-    } catch (error) {
-      console.error("Error deleting product:", error);
-      toast({
-        title: "Error",
-        description: "Failed to delete product",
-        variant: "destructive"
-      });
+    if (confirm("Are you sure you want to delete this product?")) {
+      // Optionally call backend to delete
+      setProducts(prev => prev.filter(p => p._id !== productId));
     }
   };
+  // Fetch products from backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoadingProducts(true);
+      try {
+        const brandId = localStorage.getItem("userId");
+        const url = brandId
+          ? `http://localhost:5000/api/products/brand?brand=${brandId}`
+          : `http://localhost:5000/api/products/brand`;
+        console.log("Fetching products for brand", brandId);
+        const res = await fetch(url, {
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+          }
+        });
+        const data = await res.json();
+        console.log("Fetched products", data);
+        setProducts(Array.isArray(data) ? data : []);
+      } catch (err) {
+        console.error("Error fetching products", err);
+        setProducts([]);
+      } finally {
+        setLoadingProducts(false);
+      }
+    };
+    fetchProducts();
+  }, []);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-8 h-8 border-4 border-brand-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-brand-text-light">Loading dashboard...</p>
-        </div>
-      </div>
-    );
-  }
+
+  // Handle brand profile update (PUT /api/brands/:id)
+  const handleBrandProfileUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setUpdating(true);
+    try {
+      const brandId = localStorage.getItem("userId");
+      const token = localStorage.getItem("token");
+      if (!brandId || !token) {
+        alert("Not logged in");
+        setUpdating(false);
+        return;
+      }
+      const res = await fetch(`http://localhost:5000/api/brands/${brandId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(brandForm)
+      });
+      if (!res.ok) throw new Error("Failed to update brand");
+      const data = await res.json();
+      setBrand(data);
+      setBrandForm({
+        name: data.name || "",
+        email: data.email || "",
+        website: data.website || "",
+        phone: data.phone || "",
+        description: data.description || "",
+        // avatar: data.avatar || ""
+      });
+      alert("Brand profile updated!");
+    } catch (err) {
+      alert("Error updating brand profile");
+    } finally {
+      setUpdating(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
       <Navbar />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-brand-text">Brand Dashboard</h1>
-          <p className="text-brand-text-light">Manage your products and collaborate with creators</p>
+          <h1 className="text-3xl font-bold">{brand?.name || "Brand Dashboard"}</h1>
+          <p className="text-muted-foreground">{brand?.bio || "Manage your products and creator collaborations"}</p>
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid grid-cols-4 w-full max-w-md">
+          <TabsList className="grid grid-cols-3 w-full max-w-2xl">
             <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="products" >Products</TabsTrigger>
-            <TabsTrigger value="analytics">Analytics</TabsTrigger>
-            <TabsTrigger value="creators" >Settings</TabsTrigger>
+            <TabsTrigger value="products">Products</TabsTrigger>
+            <TabsTrigger value="settings">Settings</TabsTrigger>
           </TabsList>
-
-          <TabsContent value="overview" className="space-y-6">
-            {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card className="bg-gradient-to-br from-card to-muted/50 border-brand-primary/20 hover:shadow-lg transition-all duration-300">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium text-brand-text">Total Products</CardTitle>
-                  <Package className="h-4 w-4 text-brand-primary" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-brand-text">{stats.totalProducts}</div>
-                  <p className="text-xs text-brand-text-light">Active products</p>
-                </CardContent>
-              </Card>
-              
-              <Card className="bg-gradient-to-br from-card to-muted/50 border-brand-primary/20 hover:shadow-lg transition-all duration-300">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium text-brand-text">Total Revenue</CardTitle>
-                  <DollarSign className="h-4 w-4 text-brand-primary" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-brand-text">${stats.totalRevenue.toLocaleString()}</div>
-                  <p className="text-xs text-green-600">+12% from last month</p>
-                </CardContent>
-              </Card>
-              
-              <Card className="bg-gradient-to-br from-card to-muted/50 border-brand-primary/20 hover:shadow-lg transition-all duration-300">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium text-brand-text">Active Creators</CardTitle>
-                  <Users className="h-4 w-4 text-brand-primary" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-brand-text">{stats.totalCreators}</div>
-                  <p className="text-xs text-brand-text-light">Collaborating creators</p>
-                </CardContent>
-              </Card>
-              
-              <Card className="bg-gradient-to-br from-card to-muted/50 border-brand-primary/20 hover:shadow-lg transition-all duration-300">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium text-brand-text">Conversion Rate</CardTitle>
-                  <TrendingUp className="h-4 w-4 text-brand-primary" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-brand-text">{stats.conversionRate}%</div>
-                  <p className="text-xs text-green-600">+0.5% improvement</p>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Creator Requests */}
-            <Card className="border-brand-primary/20">
+          {/* Settings Tab */}
+          <TabsContent value="settings" className="space-y-6">
+            <h2 className="text-2xl font-bold mb-4">Profile & Brand Settings</h2>
+            <Card>
               <CardHeader>
-                <CardTitle className="text-brand-text">Recent Creator Requests</CardTitle>
+                <CardTitle>Edit Brand Profile</CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {creatorRequests.slice(0, 3).map((request: any) => (
-                    <div key={request._id} className="flex items-center justify-between p-4 border border-brand-primary/10 rounded-lg bg-gradient-to-r from-card to-muted/30">
-                      <div className="flex items-center space-x-4">
-                        <Avatar>
-                          <AvatarFallback className="bg-brand-primary/10 text-brand-primary">
-                            {request.creator?.name?.split(' ').map((n: string) => n[0]).join('') || 'CR'}
-                          </AvatarFallback>
+              <CardContent className="space-y-4">
+                {brandForm && (
+                  <form onSubmit={handleBrandProfileUpdate}>
+                    <div className="flex flex-col md:flex-row gap-4">
+                      {/* <div>
+                        <Avatar className="w-20 h-20 mb-2">
+                          {brandForm.avatar ? (
+                            <img src={brandForm.avatar} alt="avatar" className="w-20 h-20 rounded-full object-cover" />
+                          ) : (
+                            <AvatarFallback>{brandForm.name ? brandForm.name[0].toUpperCase() : "B"}</AvatarFallback>
+                          )}
                         </Avatar>
-                        <div>
-                          <p className="font-medium text-brand-text">{request.creator?.name}</p>
-                          <p className="text-sm text-brand-text-light">@{request.creator?.username} • {request.creator?.followers || 0} followers</p>
-                          <p className="text-xs text-brand-text-light">Wants to promote: {request.product?.name}</p>
-                        </div>
-                      </div>
-                      <div className="flex space-x-2">
-                        <Button 
-                          size="sm" 
-                          className="bg-brand-primary hover:bg-brand-primary/90 text-white"
-                          onClick={() => handleApproveRequest(request._id)}
-                        >
-                          <Check className="w-4 h-4 mr-1" />
-                          Approve
-                        </Button>
-                        <Button 
-                          size="sm" 
+                        <input
+                          id="avatar-upload"
+                          name="avatar"
+                          type="file"
+                          accept="image/*"
+                          style={{ display: "none" }}
+                          onChange={async (e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              const reader = new FileReader();
+                              reader.onload = (ev) => {
+                                setBrandForm((prev: any) => ({ ...prev, avatar: ev.target?.result }));
+                              };
+                              reader.readAsDataURL(file);
+                            }
+                          }}
+                        />
+                        <Button
                           variant="outline"
-                          className="border-red-200 text-red-600 hover:bg-red-50"
-                          onClick={() => handleDeclineRequest(request._id)}
+                          size="sm"
+                          type="button"
+                          onClick={() => document.getElementById("avatar-upload")?.click()}
                         >
-                          <X className="w-4 h-4 mr-1" />
-                          Decline
+                          Change Avatar
                         </Button>
-                      </div>
-                    </div>
-                  ))}
-                  {creatorRequests.length === 0 && (
-                    <div className="text-center py-8 text-brand-text-light">
-                      No pending creator requests
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
+                      </div> */}
+                      <div className="flex-1 space-y-2">
+                        <label className="block text-sm font-medium">Brand Name</label>
+                        <input name="name" className="w-full border rounded px-3 py-2" type="text" placeholder="Brand name" value={brandForm.name} onChange={e => setBrandForm((prev: any) => ({ ...prev, name: e.target.value }))} />
 
-            {/* Top Performing Creators */}
-            <Card className="border-brand-primary/20">
-              <CardHeader>
-                <CardTitle className="text-brand-text">Top Performing Creators</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {topCreators.map((creator: any, index: number) => (
-                    <div key={creator._id} className="flex items-center justify-between">
-                      <div className="flex items-center space-x-4">
-                        <div className="w-8 h-8 rounded-full bg-brand-primary/10 flex items-center justify-center">
-                          <span className="font-bold text-brand-primary">#{index + 1}</span>
-                        </div>
-                        <div>
-                          <p className="font-medium text-brand-text">{creator.name}</p>
-                          <p className="text-sm text-brand-text-light">@{creator.username}</p>
+                        <label className="block text-sm font-medium mt-2">Email</label>
+                        <input name="email" className="w-full border rounded px-3 py-2" type="email" placeholder="Email" value={brandForm.email} onChange={e => setBrandForm((prev: any) => ({ ...prev, email: e.target.value }))} />
+
+                        <label className="block text-sm font-medium mt-2">Website</label>
+                        <input name="website" className="w-full border rounded px-3 py-2" type="text" placeholder="Website" value={brandForm.website} onChange={e => setBrandForm((prev: any) => ({ ...prev, website: e.target.value }))} />
+
+                        <label className="block text-sm font-medium mt-2">Phone</label>
+                        <input name="phone" className="w-full border rounded px-3 py-2" type="text" placeholder="Phone" value={brandForm.phone} onChange={e => setBrandForm((prev: any) => ({ ...prev, phone: e.target.value }))} />
+
+                        <label className="block text-sm font-medium mt-2">Description</label>
+                        <textarea name="bio" className="w-full border rounded px-3 py-2" rows={3} placeholder="Description" value={brandForm.bio} onChange={e => setBrandForm((prev: any) => ({ ...prev, bio: e.target.value }))} />
+
+                        <div className="mt-6 flex gap-2">
+                          <Button className="flex-1" type="submit" disabled={updating}>{updating ? "Saving..." : "Save Changes"}</Button>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <p className="font-bold text-brand-text">${creator.revenue.toLocaleString()}</p>
-                        <p className="text-sm text-brand-text-light">{creator.sales} sales</p>
-                      </div>
                     </div>
-                  ))}
-                  {topCreators.length === 0 && (
-                    <div className="text-center py-8 text-brand-text-light">
-                      No sales data available yet
-                    </div>
-                  )}
-                </div>
+                  </form>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
 
+          {/* Overview */}
+          <TabsContent value="overview" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Total Products</CardTitle>
+                  <Package className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{stats.totalProducts}</div>
+                  <p className="text-xs text-muted-foreground">Active in marketplace</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+                  <DollarSign className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">${stats.totalRevenue.toLocaleString()}</div>
+                  <p className="text-xs text-muted-foreground">+8% from last month</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Active Creators</CardTitle>
+                  <Users className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{stats.totalCreators}</div>
+                  <p className="text-xs text-muted-foreground">Promoting your products</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Conversion Rate</CardTitle>
+                  <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{stats.conversionRate}%</div>
+                  <p className="text-xs text-muted-foreground">+0.3% from last month</p>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* <Card>
+                <CardHeader>
+                  <CardTitle>Recent Creator Requests</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {creatorRequests.slice(0, 3).map((request) => (
+                      <div key={request.id} className="flex items-center justify-between">
+                        <div className="flex items-center space-x-3">
+                          <Avatar className="w-8 h-8">
+                            <AvatarFallback className="text-xs">{request.avatar}</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <p className="font-semibold text-sm">{request.creator}</p>
+                            <p className="text-xs text-muted-foreground">{request.product}</p>
+                          </div>
+                        </div>
+                        <Badge variant={
+                          request.status === "approved" ? "default" :
+                          request.status === "rejected" ? "destructive" : "secondary"
+                        }>
+                          {request.status}
+                        </Badge>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card> */}
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Top Performing Products</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {products.slice(0, 3).map((product, index) => (
+                      <div key={product.id} className="flex items-center space-x-4">
+                        <span className="text-lg font-bold text-muted-foreground">#{index + 1}</span>
+                        <div className="w-10 h-10 bg-gray-100 rounded-md overflow-hidden">
+                          <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-sm">{product.name}</h4>
+                          <p className="text-xs text-muted-foreground">{product.totalSales} sales</p>
+                        </div>
+                        <span className="font-bold">${product.price}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          {/* Products */}
           <TabsContent value="products" className="space-y-6">
             <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold text-brand-text">Product Management</h2>
-              <Button 
-                className="bg-[hsl(var(--brand-primary))] hover:bg-[hsl(var(--brand-primary))]/90"
-                onClick={() => navigate("/brand/brand-add-product")}
-              >
+              <h2 className="text-2xl font-bold">Product Management</h2>
+              <Button onClick={() => setShowAddProduct(!showAddProduct)}>
                 <Plus className="w-4 h-4 mr-2" />
                 Add Product
               </Button>
             </div>
-            
-            {products.length === 0 ? (
-              <Card className="text-center py-12 border-brand-primary/20">
-                <CardContent>
-                  <Package className="w-12 h-12 mx-auto mb-4 text-brand-primary" />
-                  <h3 className="text-lg font-semibold mb-2 text-brand-text">No products yet</h3>
-                  <p className="text-brand-text-light mb-4">Start by adding your first product for creators to promote.</p>
-                  <Button 
-                    className="bg-brand-primary hover:bg-brand-primary/90 text-white"
-                    onClick={() => navigate("/brand/brand-add-product")}
-                  >
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add Your First Product
-                  </Button>
+
+            {showAddProduct && (
+              <Card className="mb-6">
+                <CardHeader>
+                  <CardTitle>Add New Product</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="name">Product Name *</Label>
+                      <Input
+                        id="name"
+                        value={newProduct.name}
+                        onChange={(e) => setNewProduct({...newProduct, name: e.target.value})}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="price">Price *</Label>
+                      <Input
+                        id="price"
+                        type="number"
+                        value={newProduct.price}
+                        onChange={(e) => setNewProduct({...newProduct, price: e.target.value})}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="stock">Stock</Label>
+                      <Input
+                        id="stock"
+                        type="number"
+                        value={newProduct.stock}
+                        onChange={(e) => setNewProduct({...newProduct, stock: e.target.value})}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="commission">Commission (%)</Label>
+                      <Input
+                        id="commission"
+                        type="number"
+                        value={newProduct.commission}
+                        onChange={(e) => setNewProduct({...newProduct, commission: e.target.value})}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="category">Category</Label>
+                      <Select value={newProduct.category} onValueChange={(value) => setNewProduct({...newProduct, category: value})}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select category" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {categories.map(cat => (
+                            <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <Label htmlFor="image">Image URL</Label>
+                      <Input
+                        id="image"
+                        value={newProduct.image}
+                        onChange={(e) => setNewProduct({...newProduct, image: e.target.value})}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="description">Description</Label>
+                    <Textarea
+                      id="description"
+                      value={newProduct.description}
+                      onChange={(e) => setNewProduct({...newProduct, description: e.target.value})}
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <Button onClick={handleAddProduct}>Add Product</Button>
+                    <Button variant="outline" onClick={() => setShowAddProduct(false)}>Cancel</Button>
+                  </div>
                 </CardContent>
               </Card>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {products.map((product: any) => (
-                  <Card key={product._id} className="border-brand-primary/20 hover:shadow-lg transition-all duration-300 overflow-hidden">
-                    <div className="aspect-square relative">
-                      {product.image ? (
-                        <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
-                      ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-brand-primary/10 to-brand-secondary/10 flex items-center justify-center">
-                          <Package className="w-12 h-12 text-brand-primary" />
-                        </div>
-                      )}
-                      <Badge className="absolute top-2 right-2 bg-brand-primary text-white">
-                        {product.commission}% Commission
-                      </Badge>
-                    </div>
-                    <CardHeader>
-                      <CardTitle className="text-lg text-brand-text line-clamp-1">{product.name}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        <div className="flex justify-between">
-                          <span className="text-brand-text-light">Price:</span>
-                          <span className="font-bold text-brand-text">${product.price}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-brand-text-light">Stock:</span>
-                          <span className="font-bold text-brand-text">{product.stock}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-brand-text-light">Creators:</span>
-                          <span className="font-bold text-brand-text">{product.creatorsPromoting || 0}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-brand-text-light">Total Sales:</span>
-                          <span className="font-bold text-green-600">{product.totalSales || 0}</span>
-                        </div>
-                        <div className="flex space-x-2">
-                          <Button variant="outline" size="sm" className="flex-1">
-                            <Eye className="w-4 h-4 mr-1" />
-                            View
-                          </Button>
-                          <Button 
-                            variant="outline" 
-                            size="sm" 
-                            className="flex-1"
-                            onClick={() => navigate(`/brand/brand-edit-product/${product._id}`)}
-                          >
-                            <Edit className="w-4 h-4 mr-1" />
-                            Edit
-                          </Button>
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                            onClick={() => handleDeleteProduct(product._id)}
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
             )}
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {loadingProducts ? <div>Loading products...</div> : safeProducts.map((product) => (
+                <Card key={product._id} className="overflow-hidden">
+                  <div className="aspect-square relative">
+                    <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                    <Badge className="absolute top-2 left-2">{product.commission || 10}% Commission</Badge>
+                  </div>
+                  <CardHeader>
+                    <CardTitle className="line-clamp-1">{product.name}</CardTitle>
+                    <Badge variant="outline">{product.category}</Badge>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2 mb-4">
+                      <div className="flex justify-between">
+                        <span>Price:</span>
+                        <span className="font-bold">${product.price}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Stock:</span>
+                        <span>{product.stock}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Creators:</span>
+                        <span>{product.creatorsPromoting || 0}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Sales:</span>
+                        <span>{product.sales || 0}</span>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" className="flex-1">
+                        <Edit className="w-3 h-3 mr-1" />
+                        Edit
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        onClick={() => handleDeleteProduct(product._id)}
+                        className="text-red-600 hover:text-red-700"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </TabsContent>
 
-          <TabsContent value="creators" className="space-y-6">
-            <h2 className="text-2xl font-bold text-brand-text">Creator Collaboration</h2>
-            
-            <Tabs defaultValue="requests" className="space-y-4">
-              <TabsList className="bg-muted/50">
-                <TabsTrigger value="requests" className="data-[state=active]:bg-brand-primary data-[state=active]:text-white">
-                  Pending Requests ({creatorRequests.length})
-                </TabsTrigger>
-                <TabsTrigger value="collaborating" className="data-[state=active]:bg-brand-primary data-[state=active]:text-white">
-                  Collaborating Creators ({collaboratingCreators.length})
-                </TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="requests" className="space-y-4">
-                {creatorRequests.length === 0 ? (
-                  <Card className="text-center py-12 border-brand-primary/20">
-                    <CardContent>
-                      <Users className="w-12 h-12 mx-auto mb-4 text-brand-primary" />
-                      <h3 className="text-lg font-semibold mb-2 text-brand-text">No pending requests</h3>
-                      <p className="text-brand-text-light">Creators will see your products and can request to promote them.</p>
-                    </CardContent>
-                  </Card>
-                ) : (
-                  creatorRequests.map((request: any) => (
-                    <Card key={request._id} className="border-brand-primary/20">
+          {/* Creator Requests */}
+          {/* <TabsContent value="creators" className="space-y-6">
+            <h2 className="text-2xl font-bold">Creator Collaboration Requests</h2>
+            <div className="space-y-4">
+              {creatorRequests.filter(r => r.status === "admin-approved").length === 0 ? (
+                <div className="text-muted-foreground text-center py-8">No creator requests yet.</div>
+              ) : (
+                creatorRequests.filter(r => r.status === "admin-approved").map((request) => {
+                  const creator = request.creatorId || {};
+                  const product = request.productId || {};
+                  return (
+                    <Card key={request._id}>
                       <CardContent className="p-6">
-                        <div className="flex justify-between items-center">
+                        <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-4">
-                            <Avatar>
-                              <AvatarFallback className="bg-brand-primary/10 text-brand-primary">
-                                {request.creator?.name?.split(' ').map((n: string) => n[0]).join('') || 'CR'}
-                              </AvatarFallback>
+                            <Avatar className="w-12 h-12">
+                              <AvatarFallback>{(creator.name && creator.name.split(" ").map(n => n[0]).join("").toUpperCase()) || "CR"}</AvatarFallback>
                             </Avatar>
                             <div>
-                              <h3 className="font-semibold text-brand-text">{request.creator?.name}</h3>
-                              <p className="text-sm text-brand-text-light">@{request.creator?.username} • {request.creator?.followers || 0} followers</p>
-                              <p className="text-sm text-brand-text">Wants to promote: <span className="font-medium">{request.product?.name}</span></p>
-                              <p className="text-xs text-brand-text-light">Requested {new Date(request.createdAt).toLocaleDateString()}</p>
+                              <h3 className="font-semibold">{creator.name || "Creator"}</h3>
+                              <p className="text-sm text-muted-foreground">{creator.email || "-"}</p>
+                            </div>
+                            <div className="text-center">
+                              <p className="font-semibold">{product.name || "Product"}</p>
+                              <p className="text-xs text-muted-foreground">Requested {new Date(request.createdAt).toLocaleString()}</p>
                             </div>
                           </div>
-                          <div className="flex space-x-2">
-                            <Button 
-                              size="sm" 
-                              className="bg-brand-primary hover:bg-brand-primary/90 text-white"
-                              onClick={() => handleApproveRequest(request._id)}
-                            >
-                              <Check className="w-4 h-4 mr-1" />
-                              Approve
-                            </Button>
-                            <Button 
-                              size="sm" 
-                              variant="outline"
-                              className="border-red-200 text-red-600 hover:bg-red-50"
-                              onClick={() => handleDeclineRequest(request._id)}
-                            >
-                              <X className="w-4 h-4 mr-1" />
-                              Decline
-                            </Button>
+                          <div className="flex items-center space-x-2">
+                            <Badge variant={
+                              request.status === "approved" ? "default" :
+                              request.status === "rejected" ? "destructive" : "secondary"
+                            }>
+                              {request.status}
+                            </Badge>
+                            {request.status === "admin-approved" && (
+                              <div className="flex space-x-2">
+                                <Button 
+                                  size="sm" 
+                                  onClick={() => handleApproveRequest(request._id)}
+                                >
+                                  <CheckCircle className="w-4 h-4 mr-1" />
+                                  Approve
+                                </Button>
+                                <Button 
+                                  size="sm" 
+                                  variant="outline"
+                                  onClick={() => handleRejectRequest(request._id)}
+                                >
+                                  <XCircle className="w-4 h-4 mr-1" />
+                                  Reject
+                                </Button>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </CardContent>
                     </Card>
-                  ))
-                )}
-              </TabsContent>
+                  );
+                })
+              )}
+            </div>
+          </TabsContent> */}
 
-              <TabsContent value="collaborating" className="space-y-4">
-                {collaboratingCreators.length === 0 ? (
-                  <Card className="text-center py-12 border-brand-primary/20">
-                    <CardContent>
-                      <Users className="w-12 h-12 mx-auto mb-4 text-brand-primary" />
-                      <h3 className="text-lg font-semibold mb-2 text-brand-text">No active collaborations</h3>
-                      <p className="text-brand-text-light">Approve creator requests to start collaborations.</p>
-                    </CardContent>
-                  </Card>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {collaboratingCreators.map((creator: any) => (
-                      <Card key={creator._id} className="border-brand-primary/20">
-                        <CardContent className="p-6">
-                          <div className="flex items-center space-x-4 mb-4">
-                            <Avatar>
-                              <AvatarFallback className="bg-brand-primary/10 text-brand-primary">
-                                {creator.name?.split(' ').map((n: string) => n[0]).join('') || 'CR'}
-                              </AvatarFallback>
-                            </Avatar>
-                            <div>
-                              <h3 className="font-semibold text-brand-text">{creator.name}</h3>
-                              <p className="text-sm text-brand-text-light">@{creator.username}</p>
-                              <p className="text-xs text-brand-text-light">{creator.followers || 0} followers</p>
-                            </div>
-                          </div>
-                          <div className="space-y-2">
-                            <div className="flex justify-between">
-                              <span className="text-sm text-brand-text-light">Products:</span>
-                              <span className="text-sm font-medium text-brand-text">{creator.productsPromoting || 0}</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-sm text-brand-text-light">Sales:</span>
-                              <span className="text-sm font-medium text-brand-text">{creator.totalSales || 0}</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-sm text-brand-text-light">Revenue:</span>
-                              <span className="text-sm font-medium text-green-600">${creator.totalRevenue || 0}</span>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                )}
-              </TabsContent>
-            </Tabs>
-          </TabsContent>
-
+          {/* Analytics */}
           <TabsContent value="analytics" className="space-y-6">
-            <h2 className="text-2xl font-bold text-brand-text">Analytics & Insights</h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-brand-primary/20">
+            <h2 className="text-2xl font-bold">Analytics & Performance</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center text-brand-text">
-                    <BarChart3 className="w-5 h-5 mr-2 text-brand-primary" />
-                    Performance Metrics
-                  </CardTitle>
+                  <CardTitle>Sales Overview</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-brand-text-light">Total Revenue</span>
-                      <span className="font-bold text-brand-text">${stats.totalRevenue.toLocaleString()}</span>
+                      <span>Total Revenue</span>
+                      <span className="font-bold">${stats.totalRevenue.toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-brand-text-light">Average Order Value</span>
-                      <span className="font-bold text-brand-text">$156</span>
+                      <span>Total Orders</span>
+                      <span className="font-bold">479</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-brand-text-light">Creator Conversion Rate</span>
-                      <span className="font-bold text-brand-text">{stats.conversionRate}%</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-brand-text-light">Return on Ad Spend</span>
-                      <span className="font-bold text-brand-text">3.2x</span>
+                      <span>Avg Order Value</span>
+                      <span className="font-bold">${(stats.totalRevenue / 479).toFixed(2)}</span>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-brand-primary/20">
+              <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center text-brand-text">
-                    <TrendingUp className="w-5 h-5 mr-2 text-brand-primary" />
-                    Growth Trends
-                  </CardTitle>
+                  <CardTitle>Creator Performance</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-brand-text-light">Revenue Growth</span>
-                      <span className="font-bold text-green-600">+23%</span>
+                      <span>Active Creators</span>
+                      <span className="font-bold">{stats.totalCreators}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-brand-text-light">New Creators</span>
-                      <span className="font-bold text-green-600">+{stats.totalCreators}</span>
+                      <span>Pending Requests</span>
+                      <span className="font-bold">{creatorRequests.filter(r => r.status === "pending").length}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-brand-text-light">Product Views</span>
-                      <span className="font-bold text-green-600">+45%</span>
+                      <span>Commission Paid</span>
+                      <span className="font-bold">$12,450</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Product Metrics</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="flex justify-between">
+                      <span>Best Seller</span>
+                      <span className="font-bold">Water Bottle</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-brand-text-light">Conversion Rate</span>
-                      <span className="font-bold text-green-600">+12%</span>
+                      <span>Conversion Rate</span>
+                      <span className="font-bold">{stats.conversionRate}%</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Return Rate</span>
+                      <span className="font-bold">2.1%</span>
                     </div>
                   </div>
                 </CardContent>
