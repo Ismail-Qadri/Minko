@@ -1,12 +1,12 @@
 // server.js or routes/creators.js
 import express from "express";
-import Creator from "../models/Creator.js"; // your mongoose model
+import User from "../models/User.js"; // your mongoose model
 
 const router = express.Router();
 
 router.get("/:id", async (req, res) => {
   try {
-    const creator = await Creator.findById(req.params.id);
+    const creator = await User.findById(req.params.id);
     if (!creator) {
       return res.status(404).json({ message: "Creator not found" });
     }

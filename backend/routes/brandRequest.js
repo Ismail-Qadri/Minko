@@ -1,12 +1,13 @@
-const express = require('express');
-const router = express.Router();
-const BrandRequest = require('../models/BrandRequest');
-const mongoose = require('mongoose');
+import { Router } from 'express';
+import BrandRequest from '../models/BrandRequest.js';
+import { Types } from 'mongoose';
+
+const router = Router();
 
 // Get all requests for a creator (optionally filter by status)
 router.get('/', async (req, res) => {
   const { creatorId, status } = req.query;
-  if (!creatorId || !mongoose.Types.ObjectId.isValid(creatorId)) {
+  if (!creatorId || !Types.ObjectId.isValid(creatorId)) {
     return res.status(400).json({ error: 'Invalid creatorId' });
   }
   const filter = { creatorId };
@@ -18,7 +19,7 @@ router.get('/', async (req, res) => {
 // Create a new brand request
 router.post('/', async (req, res) => {
   const { productId, brandId, creatorId, creatorName, message } = req.body;
-  if (![productId, brandId, creatorId].every(mongoose.Types.ObjectId.isValid)) {
+  if (![productId, brandId, creatorId].every(id => Types.ObjectId.isValid(id))) {
     return res.status(400).json({ error: 'Invalid IDs' });
   }
   const request = new BrandRequest({ productId, brandId, creatorId, creatorName, message });
@@ -26,4 +27,4 @@ router.post('/', async (req, res) => {
   res.status(201).json(request);
 });
 
-module.exports = router;
+export default router;

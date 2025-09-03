@@ -38,11 +38,22 @@ const Login = () => {
     console.log("login", data);
 
     if (response.ok) {
-       localStorage.setItem("token", data.token);
-       console.log("login token:", data.token);
-      alert("Login successful!");
-      // You can store user data in context/localStorage here if needed
-      navigate(userType === "creator" ? "/creator/dashboard" : "/brand/dashboard");
+      localStorage.setItem("token", data.token);
+      console.log("login token:", data.token);
+      if (data.user && data.user._id && data.user.type) {
+        localStorage.setItem("userId", data.user._id);
+        localStorage.setItem("userType", data.user.type);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        alert("Login successful!");
+        if (data.user.type === "creator") {
+          navigate(`/creator/dashboard/`);
+        } else {
+          navigate(`/brand/dashboard/${data.user._id}`);
+        }
+      } else {
+        alert("Login successful, but user data missing. Please try again.");
+        navigate("/");
+      }
     } else {
       alert(data.message || "Login failed");
     }

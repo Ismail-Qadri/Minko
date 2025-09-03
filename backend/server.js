@@ -14,7 +14,7 @@ import authenticate from "./middleware/auth.js";
 import storeRoutes from "./routes/storeRoutes.js";
 import productsRoutes from "./routes/products.js";
 import brandRequestRoutes from "./routes/brandRequest.js";
-import checkoutRoutes from "./routes/checkout.js";
+
 import dotenv from "dotenv";
 import avatarUploadRoutes from "./routes/avatarUpload.js";
 
@@ -49,7 +49,7 @@ app.use("/api", storeRoutes);
 app.use("/api", productsRoutes);
   app.use("/api/brand-requests", brandRequestRoutes);
 app.use("/api/brands", brandsRoutes);
-app.use("/api/checkout", checkoutRoutes);
+
 app.use("/api", avatarUploadRoutes);
 // Serve uploads directory for avatars
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));

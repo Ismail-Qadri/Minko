@@ -109,7 +109,19 @@ const Register = () => {
 
       if (response.ok) {
         alert("Email verified! Account created successfully.");
-        navigate(userType === "creator" ? "/creator/dashboard" : "/brand/dashboard");
+        // Log the full user object
+        console.log("Registered user:", data.user);
+        const userId = data.user?._id || data.user?.id;
+        const type = data.user?.type || userType;
+        if (userId && type) {
+          localStorage.setItem("userId", userId);
+          localStorage.setItem("userType", type);
+          localStorage.setItem("user", JSON.stringify(data.user));
+          navigate(`/${type}/dashboard/${userId}`);
+        } else {
+          // fallback if no user id returned
+          navigate(type === "creator" ? "/creator/dashboard" : "/brand/dashboard");
+        }
       } else {
         setError(data.message || "Verification failed. Please check the code and try again.");
       }

@@ -8,16 +8,20 @@ export default function Navbar() {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userType, setUserType] = useState<string | null>(null);
 
   // Detect login state from token
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
+    setUserType(localStorage.getItem("userType"));
   }, [location.pathname]); // Re-check on route change
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userType");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("user");
     setIsLoggedIn(false);
     navigate("/login");
   };
@@ -27,6 +31,12 @@ export default function Navbar() {
 
   const navItems: { name: string; path?: string; action?: () => void }[] = [
     { name: "Explore Creators", path: "/browse" },
+    ...(isLoggedIn && userType === "creator"
+      ? [{ name: "Dashboard", path: "/creator/dashboard" }]
+      : []),
+    ...(isLoggedIn && userType === "brand"
+      ? [{ name: "Dashboard", path: "/brand/dashboard" }]
+      : []),
     ...(!isLoggedIn && !isAuthPage
       ? [{ name: "Login / Sign Up", path: "/login" }]
       : []),
@@ -39,30 +49,23 @@ export default function Navbar() {
     <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
       <div className="max-w-10xl px-4 sm:px-6 lg:px-10 mx-auto">
         <div className="flex justify-between items-center h-16">
-          {/* Logo and Brand */}
-          {isLoggedIn ? (
-            <div className="flex items-center space-x-2 cursor-default">
-              <img
-                src={logoImg}
-                alt="Logo"
-                className="w-12 h-12 rounded-full object-cover"
-              />
-              <span className="text-xl font-bold text-[hsl(var(--brand-text))]">
-                MINKO
-              </span>
-            </div>
-          ) : (
-            <Link to="/" className="flex items-center space-x-2">
-              <img
-                src={logoImg}
-                alt="Logo"
-                className="w-12 h-12 rounded-full object-cover"
-              />
-              <span className="text-xl font-bold text-[hsl(var(--brand-text))]">
-                MINKO
-              </span>
-            </Link>
-          )}
+          {/* Logo and Brand - always clickable to landing page */}
+          <div
+            className="flex items-center space-x-2 cursor-pointer"
+            onClick={() => navigate("/")}
+            role="button"
+            tabIndex={0}
+            style={{ userSelect: "none" }}
+          >
+            <img
+              src={logoImg}
+              alt="Logo"
+              className="w-12 h-12 rounded-full object-cover"
+            />
+            <span className="text-xl font-bold text-[hsl(var(--brand-text))]">
+              MINKO
+            </span>
+          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-4">

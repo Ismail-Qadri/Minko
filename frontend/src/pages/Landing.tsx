@@ -153,7 +153,7 @@ export default function Landing() {
             className="bg-[#b1976b] hover:bg-[#a77c44] text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition"
             onClick={() => navigate("/register")}
           >
-            Join as a Creator
+            Join Us
           </motion.button>
         </div>
       </section>
